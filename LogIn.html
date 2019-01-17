@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <script src="Script.js"></script>
   	<meta charset="UTF-8">
   	<title>Contact Manager</title>
     <nav style="background-color: #565656;">
@@ -15,10 +16,10 @@
   <body>
     <form method="post">
       <!-- Username -->
-        <input type="text" name="username" placeholder="Enter your username" required/>
+        <input type="text" name="username" placeholder="Enter your username" id="username" required/>
       <!-- Password -->
-        <input type="password" name="password" placeholder="Enter your password" required/>
-        <input type="submit" />
+        <input type="password" name="password" placeholder="Enter your password" id="password" required/>
+        <input type="submit" id="submit" onclick="validateUser()" />
     </form>
   </body>
 </html>
