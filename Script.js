@@ -19,6 +19,7 @@ function validateUser()
 	//response from stack
 	
 	//if(user good)
+	//temp check, server will send back true/false to allow login
 	if(username == "admin" && password == "password")
 		var success = true;
 	
