@@ -19,6 +19,13 @@ function validateUser()
 	//response from stack
 	
 	//if(user good)
+	if(username == "admin" && password == "password")
+		var success = true;
+	
+	if(success)
+		alert("logged in!")
+	else
+		alert("invalid user/password")
 	//direct user to contacts.html
 	
 	//else
