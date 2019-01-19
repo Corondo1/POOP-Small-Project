@@ -1,12 +1,27 @@
 /*style sheet for the navigation bar*/
+
+/*"Contact Manager" header*/
+.logo
+{
+  color: #000000; /*black*/
+  float: left;
+  padding-left: 25px;
+  padding-top: 25px;
+}
+
+.navlogin
+{
+  color: #000000; /*black*/
+}
+
+.navsignup
+{
+  color: #000000; /*black*/
+}
+
 nav
 {
   float: right;
-}
-
-.logo
-{
-  float: left;
 }
 
 nav ul
@@ -32,12 +47,12 @@ nav li
   position: relative;
 }
 
-nav a:hover
+nav:hover
 {
   color: #000;
 }
 
-nav a::before
+nav::before
 {
   content: '';
   display: block;
@@ -52,7 +67,7 @@ nav a::before
   transition: all ease-in-out 250ms;
 }
 
-nav a:hover::before
+nav:hover::before
 {
   width: 100%;
 }
