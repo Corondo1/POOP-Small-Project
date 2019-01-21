@@ -1,25 +1,53 @@
 <!DOCTYPE html>
 <html>
-  <head>
-  	<meta charset="UTF-8">
-  	<title>Contact Manager</title>
-    <nav style="background-color: #565656;">
-      <a href="index.html" style="color: yellow;">
-        Contact Manager
-      </a>
-      <a href="LogIn.html" style="color: white; background-color:green;">
-        Log In
-      </a>
-    </nav>
-  </head>
-  <body>
-    <form method="post">
-      <input type="text" name="username" placeholder="Username" required />
-      <br>
-      <input type="password" name="password" placeholder="Password" required />
-      <br>
-      <input type="password" name="reenterpassword" placeholder="Reenter Password" required />
-      <input type="submit" />
-    </form>
-  </body>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="NavStyle.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </head>
+
+    <body>
+        <nav class="navbar navbar-inverse">
+          <div class="container-fluid">
+              <div class="navbar-header">
+                  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+              </div>
+              <div class="collapse navbar-collapse" id="myNavbar">
+                  <ul class="nav navbar-nav navbar-right">
+                      <li><a href="ContactManager.html">Contact Manager</a></li>
+                      <li><a href="Login.html">Login</a></li>
+                  </ul>
+              </div>
+          </div>
+        </nav>
+        <div class="jumbotron text-center">
+            <h1>Project 1</h1>
+            <p>Wubba lubba dub dubbbb! Signup Here!</p>
+        </div>
+        <div class="container">
+            <h2>Signup</h2>
+            <form action="insertNewUserIntoTheDatabase.php" method="POST">
+                <div class="form-group">
+                    <label>Username:</label>
+                    <input id="username" name="username" type="text" class="form-control" placeholder="Enter username" required>
+                </div>
+                <div class="form-group">
+                    <label for="pwd">Password:</label>
+                    <input id="password" name="password" type="password" class="form-control" id="pwd" placeholder="Enter password" required>
+                </div>
+                <div class="form-group">
+                    <label for="pwd">Confirm Password:</label>
+                    <input id="password_confirm" name="password" type="password" class="form-control" id="pwd" placeholder="Enter password" required>
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+        </div>
+    </body>
 </html>

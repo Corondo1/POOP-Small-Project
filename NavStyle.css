@@ -1,9 +1,9 @@
 /*style sheet for the navigation bar*/
 
 /*"Contact Manager" header*/
-.logo
+/* .logo
 {
-  color: #000000; /*black*/
+  color: #000000;
   float: left;
   padding-left: 25px;
   padding-top: 25px;
@@ -11,12 +11,12 @@
 
 .navlogin
 {
-  color: #000000; /*black*/
+  color: #000000;
 }
 
 .navsignup
 {
-  color: #000000; /*black*/
+  color: #000000;
 }
 
 nav
@@ -70,4 +70,18 @@ nav::before
 nav:hover::before
 {
   width: 100%;
+} */
+
+
+/**************************
+* UPDATED PAGES CSS CONTENT
+***************************/
+.navbar {
+    margin-bottom:0px;
+}
+.jumbotron {
+    margin-top:0px;
+}
+.container{
+    padding-bottom:70px;
 }
