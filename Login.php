@@ -18,7 +18,7 @@
 	} else 
 	{
 		//echo("successfully connected to mysql <br>");
-		$sql = "SELECT username, firstname, lastname FROM Users WHERE username = '$username' and password = '$password'";
+		$sql = "SELECT username FROM Users WHERE username = '$username' and password = '$password'";
 		//echo("sql string is [$sql] <br>");
 		$results = mysqli_query($conn, $sql);
 		$numrows = mysqli_num_rows($results);
