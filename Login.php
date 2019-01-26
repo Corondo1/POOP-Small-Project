@@ -4,11 +4,11 @@
    
    if($_SERVER["REQUEST_METHOD"] == "POST") 
    {
-    echo("Works <br>");
+    //echo("Works <br>");
       
     $username = $_POST['username'];
     $password = $_POST['password']; 
-	echo("username $username and password $password <br>");
+	//echo("username $username and password $password <br>");
 
 	//$db = mysqli_connect("localhost:3306","webaccess","Generic123!","cop4331");
 	$conn = getDataBase();
@@ -19,12 +19,12 @@
 	{
 		//echo("successfully connected to mysql <br>");
 		$sql = "SELECT username, firstname, lastname FROM Users WHERE username = '$username' and password = '$password'";
-		echo("sql string is [$sql] <br>");
+		//echo("sql string is [$sql] <br>");
 		$results = mysqli_query($conn, $sql);
 		$numrows = mysqli_num_rows($results);
 		
-		echo("<br> made it past query <br>");
-		echo("numrows is $numrows <br>");
+		//echo("<br> made it past query <br>");
+		//echo("numrows is $numrows <br>");
 		if($numrows < 1)
 		{
 			echo("<br> invalid login credenitaltajskdlawd <br>");
