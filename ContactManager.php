@@ -35,6 +35,52 @@
         <p>Select a user to display their contacts.</p>
         <p>Populate the table from the database. Whenever a user name is pressed query the database using ajax and then put the results in contacts. edit class="active" attribute to change which of the users is "selected"</p>
 
+        <?php
+			include("config.php");
+			session_start();
+			
+			if($_SERVER["REQUEST_METHOD"] == "POST")
+			{
+				$sql = "SELECT account FROM contacts WHERE username = """;
+				$response = mysqli_query($dataBase, $sql);
+				
+				
+			}
+			function addContact()
+			{
+			}
+			
+			function delContact()
+			{
+			}
+			
+			function editContact()
+			{
+			}
+		?>
+        
+        <table class="contacts">
+			<tr class ="header">
+				<td>Name</td>
+				<td>Phone</td>
+				<td>Address</td>
+				<td>Avg. Fortnite per Week</td>
+				<td>Zodiac Sign</td>
+			</tr>
+			<?php
+				while($row = mysql_fetch_array($response))
+				{
+					echo "<tr>";
+					echo "<td>".$row[name]."</td>";
+					echo "<td>".$row[phone]."</td>";
+					echo "<td>".$row[address]."</td>";
+					echo "<td>".$row[fortniteTime]."</td>";
+					echo "<td>".$row[zodiac]."</td>";
+					echo "</tr>";
+				}
+			?>
+		</table>
+        
         <div class="col-sm-6">
             <table class="table">
                 <thead>
