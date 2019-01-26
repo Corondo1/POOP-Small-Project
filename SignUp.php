@@ -4,7 +4,7 @@
    
    if($_SERVER["REQUEST_METHOD"] == "POST") 
    {
-      // username and password sent from form 
+      //Most of this is depracated junk, needs to be redone -soon TM(C)R
       
       $username = mysqli_real_escape_string($dataBase,$_POST['username']);
       $password = mysqli_real_escape_string($dataBase,$_POST['password']); 
