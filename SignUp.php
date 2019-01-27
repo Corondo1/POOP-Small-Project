@@ -13,9 +13,6 @@
 	  if($password != $authpassword)
 	  {
 		  echo "Passwords do not match";
-		  header("location: SignUp.html");
-		  exit();
-		  
 	  }
 	  
       $sql = "INSERT INTO Users (Username,Password) VALUES ('" . $username . "','" . $password . "')";
