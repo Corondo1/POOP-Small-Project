@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html>
+<!--Added a manifest that keeps track of version to autoupdate the cache of the user-->
+<html manifest="cache.manifest">
     <head>
+        <!--Script is for updating version for caching-->
+        <script type="text/javascript" src="update_cache.js"></script>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -10,6 +14,8 @@
     </head>
 
     <body>
+      <!--onload is for updating cache-->
+      <body onload="checkForUpdate()">
         <nav class="navbar navbar-inverse">
           <div class="container-fluid">
               <div class="navbar-header">
