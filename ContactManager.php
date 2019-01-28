@@ -76,5 +76,10 @@
             </table>
         </div>
     </div>
+    
+    <script type="text/javascript">
+		var javaScriptToPhp = "<?php echo $retContacts; ?>";
+	</script>
+    
 </body>
 </html>
