@@ -1,11 +1,12 @@
 CACHE MANIFEST
-# version 1.00
+# version 1.03
 config.php
 ContactManager.php
 contacts.php
+Contacts.php
 LogIn.html
-logout.php
-NavStyle.css
+login.php
+poop.jpg
 session.php
 SignUp.html
 SignUP.php
