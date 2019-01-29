@@ -19,7 +19,7 @@
 	  $conn = getDataBase();
       if($result = mysqli_query($conn,$sql) == TRUE)
 	  {
-		  header("location: LogIn.html");
+		  header("location: login.html");
 	  }
 	  else
 	  {
