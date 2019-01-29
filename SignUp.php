@@ -21,5 +21,9 @@
 	  {
 		  header("location: LogIn.html");
 	  }
+	  else
+	  {
+		  echo "oops server fail";
+	  }
    }
 ?>
