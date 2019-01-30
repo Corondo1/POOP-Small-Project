@@ -19,11 +19,7 @@
 	  $conn = getDataBase();
       if($result = mysqli_query($conn,$sql) == TRUE)
 	  {
-		  header("location: login.html");
-	  }
-	  else
-	  {
-		  echo "oops server fail";
+		  echo "New user registered";
 	  }
    }
 ?>
