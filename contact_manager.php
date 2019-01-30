@@ -138,7 +138,7 @@
                             </div>
                             <div class="form-group"> <!-- There is probably a better way to do this -->
                                 <label>Address:</label>
-                                <input id="contact_address" name="contact_address" type="number" class="form-control" placeholder="Enter contact address">
+                                <input id="contact_address" name="contact_address" type="text" class="form-control" placeholder="Enter contact address">
                             </div>
                             <button type="submit" class="btn btn-default">Submit</button>
                         </form>
