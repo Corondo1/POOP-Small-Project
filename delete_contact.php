@@ -1,11 +1,7 @@
 <?php
 	$inData = getRequestInfo();
 	
-	$ownerId = $inData["owner_id"];
-	$name = $inData["contact_name"];
-	$email = $inData["contact_email"];
-	$phone = $inData["contact_phone"];
-	$address = $inData["contact_address"];
+	$contactId = $inData["contact_id"];
 	
 	$conn = new mysqli("localhost", "poop_default", "EC6p~$[s,!G+", "poop_Yeet1");
 	
@@ -16,8 +12,7 @@
 	
 	else
 	{	
-		$sql = "INSERT INTO Contacts (owner_id, name, email, phone, address) 
-		VALUES (" . $ownerId . ", '" . $name . "', '" . $email . "', " . $phone . ", '" . $address . "')";
+		$sql = "DELETE FROM Contacts WHERE contact_id = $contactId";
 		
 		if( $result = $conn->query($sql) != TRUE )
 		{

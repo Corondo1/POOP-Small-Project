@@ -58,11 +58,14 @@
                 </thead>
                 <tbody>
                     <?php
+					
                     $conn = getDataBase();
+					
                 	if(mysqli_connect_errno($conn))
                 	{
                 		echo("Failed to connect to MySQL: " . mysqli_connect_error($conn));
                 	}
+					
                 	else
                 	{
                 		$usersql = "SELECT user_id FROM Users where username = '$user_check' ";
@@ -73,7 +76,9 @@
                 		{
                 			//cry
                 			echo("oops");
-                		} else
+                		} 
+						
+						else
                 		{
                 			$row = mysqli_fetch_assoc($response);
                 			$userid = $row['user_id'];
@@ -85,9 +90,10 @@
 
                 		if($numrows < 1)
                 		{
-                            echo "no rows retreived.";
+                            echo "No Contacts Found.";
                 		}
-                        else
+                        
+						else
                 		{
 
                 			while($row = mysqli_fetch_assoc($response))
@@ -144,7 +150,7 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" onclick="javascript:window.location.reload()" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -155,18 +161,45 @@
 
 <script>
 
-function deleteContact(contact_id) {
-    alert("Delete contact with id "+contact_id+" from the database using ajax.");
+function deleteContact(contact_id) 
+{
+	var contactId = contact_id;
+	
+	var jsonPayload = '{"contact_id" : "' + contactId + '"}';
+	
+	var url = 'http://yeetdog.com/ContactProject/delete_contact.php';
+	
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				window.location.reload();
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	
+	catch(err)
+	{
+		alert(err.message);
+	}
 }
 
-function addContact(ownerId)
+function addContact()
 {
+	var ownerId = <?php echo json_encode($userid); ?>;
 	var contact_name = document.getElementById("contact_name").value;
 	var contact_email = document.getElementById("contact_email").value;
 	var contact_phone = +document.getElementById("contact_phone").value;
 	var contact_address = document.getElementById("contact_address").value;
 	
-	var jsonPayload = '{"contact_name" : "' + contact_name + '", "contact_email" : "' + contact_email + '", "contact_phone" : "' + contact_phone + '", "contact_address" : "' + contact_address + '"}';
+	var jsonPayload = '{"owner_id" : "' + ownerId + '", "contact_name" : "' + contact_name + '", "contact_email" : "' + contact_email + '", "contact_phone" : "' + contact_phone + '", "contact_address" : "' + contact_address + '"}';
 	
 	var url = 'http://yeetdog.com/ContactProject/add_contact.php';
 	
@@ -180,6 +213,7 @@ function addContact(ownerId)
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
+				window.location.reload();
 				alert("Contact has been added");
 			}
 		};
