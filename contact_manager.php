@@ -225,4 +225,40 @@ function addContact()
 		alert(err.message);
 	}
 }
+
+function searchContact()
+{
+	var ownerId = <?php echo json_encode($userid); ?>;
+	var searchName = document.getElementById("search_name").value;
+	
+	var jsonPayload = '{"search" : "' + searchName + '", "owner_id" : "' + ownerId + '"}';
+	var url = 'http://yeetdog.com/ContactProject/search_contact.php';
+	
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				var values = '';
+				var jsonObject = JSON.parse( xhr.responseText );
+				var i;
+				for(i = 0; i < jsonObject.results.length; i++)
+				{
+					values += jsonObject.results[i];
+					values += "\r";
+				}
+				alert(values);
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{
+		alert(err.message);
+	}
+}
 </script>
