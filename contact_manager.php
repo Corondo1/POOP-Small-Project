@@ -123,7 +123,7 @@
                         <h4 class="modal-title">Add Contact</h4>
                     </div>
                     <div class="modal-body">
-                        <form action="add_contact.php" method="POST">
+                        <form action="javascript:addContact();" method="POST">
                             <div class="form-group">
                                 <label>Name:</label>
                                 <input id="contact_name" name="contact_name" type="text" class="form-control" placeholder="Enter contact name" required>
@@ -159,7 +159,36 @@ function deleteContact(contact_id) {
     alert("Delete contact with id "+contact_id+" from the database using ajax.");
 }
 
-function addContact(){
-    alert("Add contact for the signed on user id");
+function addContact(ownerId)
+{
+	var contact_name = document.getElementById("contact_name").value;
+	var contact_email = document.getElementById("contact_email").value;
+	var contact_phone = +document.getElementById("contact_phone").value;
+	var contact_address = document.getElementById("contact_address").value;
+	
+	var jsonPayload = '{"contact_name" : "' + contact_name + '", "contact_email" : "' + contact_email + '", "contact_phone" : "' + contact_phone + '", "contact_address" : "' + contact_address + '"}';
+	
+	var url = 'http://yeetdog.com/ContactProject/add_contact.php';
+	
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				alert("Contact has been added");
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	
+	catch(err)
+	{
+		alert(err.message);
+	}
 }
 </script>
