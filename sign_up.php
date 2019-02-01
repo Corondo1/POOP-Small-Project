@@ -27,10 +27,12 @@
 		else
 		{
 			$hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
-			$sql = "INSERT INTO Users (Username,Password) VALUES ('" . $username . "','" . $hashed_password . "')";
 			
-			if(mysqli_query($conn,$sql))
+			$stmt = $conn->prepare("INSERT INTO Users (Username,Password) VALUES (?, ?)");
+			
+			$stmt->bind_param("ss", $username, $hashed_password);
+			
+			if($stmt->execute())
 			{
 				echo "<script>";
 				echo 'alert("Successful Sign Up!");';
@@ -45,6 +47,21 @@
 				echo 'location = "sign_up.html"';
 				echo "</script>";
 			}
+			
+			$stmt->close();
+			$conn->close();
 		}
+	}
+	
+	function sendResultInfoAsJson( $obj )
+	{
+		header('Content-type: application/json');
+		echo $obj;
+	}
+	
+	function returnWithError( $err )
+	{
+		$retValue = '{"error":"' . $err . '"}';
+		sendResultInfoAsJson( $retValue );
 	}
 ?>

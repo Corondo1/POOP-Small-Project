@@ -16,12 +16,18 @@
 	
 	else
 	{
-		$sql = "SELECT contact_id FROM Contacts WHERE name LIKE '%" . $contactName . "%' AND owner_id = $userId";
-		$result = $conn->query($sql);
+		$stmt = $conn->prepare("SELECT contact_id FROM Contacts WHERE name LIKE '% ? %' AND owner_id = ?");
 		
-		if ($result->num_rows > 0)
+		$stmt->bind_param("si", $contactName, $userId);
+		
+		$stmt->execute();
+						
+		$stmt->bind_result($contactId);
+		$stmt->store_result();
+		
+		if ($stmt->num_rows() > 0)
 		{
-			while($row = $result->fetch_assoc())
+			while ($stmt->fetch())
 			{
 				if( $searchCount > 0 )
 				{
@@ -29,7 +35,7 @@
 				}
 				
 				$searchCount++;
-				$searchResults .= '" . $row["contact_id"] . "';
+				$searchResults .= ' . $contactId . ';
 			}
 		}
 		
@@ -38,6 +44,7 @@
 			returnWithError( "No Records Found" );
 		}
 		
+		$stmt->close();
 		$conn->close();
 	}
 

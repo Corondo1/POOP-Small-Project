@@ -68,45 +68,49 @@
 					
                 	else
                 	{
-                		$usersql = "SELECT user_id FROM Users where username = '$user_check' ";
-                		$response = mysqli_query($conn, $usersql);
-                		$numrows = mysqli_num_rows($response);
-
-                		if($numrows < 1)
-                		{
-                			//cry
-                			echo("oops");
-                		} 
+                		$stmt1 = $conn->prepare("SELECT user_id FROM Users WHERE username = ?");
+						
+						$stmt1->bind_param("i", $user_check);
+						
+						$stmt1->execute();
+						
+						$stmt1->bind_result($userId);
+						$stmt1->store_result();
+						
+						if ($stmt1->num_rows() < 1)
+						{
+							echo("Error");
+						}
 						
 						else
-                		{
-                			$row = mysqli_fetch_assoc($response);
-                			$userid = $row['user_id'];
-                		}
-
-                		$sql = "SELECT contact_id,name,email,phone,address FROM Contacts where owner_id = '$userid'";
-                		$response = mysqli_query($conn, $sql);
-                		$numrows = mysqli_num_rows($response);
-
-                		if($numrows < 1)
-                		{
-                            echo "No Contacts Found.";
-                		}
-                        
-						else
-                		{
-
-                			while($row = mysqli_fetch_assoc($response))
-                			{
-                                echo "<tr>";
-                                echo "<td>" . $row['name'] . "</td>";
-                                echo "<td>" . $row['email'] . "</td>";
-                                echo "<td>" . $row['phone'] . "</td>";
-                                echo "<td>" . $row['address'] . "</td>";
-                                echo "<td><button id='addContact' type='button' class='btn btn-danger' onclick='deleteContact(".$row['contact_id'].")'>Delete</button></td>";
-                                echo "</tr>";
-                			}
-                		}
+						{
+							while ($stmt1->fetch())
+							{
+								$stmt2 = $conn->prepare("SELECT contact_id, name, email, phone, address FROM Contacts WHERE owner_id = ?");
+								
+								$stmt2->bind_param("i", $userId);
+								
+								$stmt2->execute();
+								
+								$stmt2->bind_result($contactId, $name, $email, $phone, $address);
+								$stmt2->store_result();
+								
+								while ($stmt2->fetch())
+								{
+									echo "<tr>";
+									echo "<td>" . $name . "</td>";
+									echo "<td>" . $email . "</td>";
+									echo "<td>" . $phone . "</td>";
+									echo "<td>" . $address . "</td>";
+									echo "<td><button id='addContact' type='button' class='btn btn-danger' onclick='deleteContact(".$contactId.")'>Delete</button></td>";
+									echo "</tr>";
+								}
+							}
+							
+							$stmt1->close();
+							$stmt2->close();
+							$conn->close();
+						}
                 	}
                     ?>
                 </tbody>
@@ -193,7 +197,7 @@ function deleteContact(contact_id)
 
 function addContact()
 {
-	var ownerId = <?php echo json_encode($userid); ?>;
+	var ownerId = <?php echo json_encode($userId); ?>;
 	var contact_name = document.getElementById("contact_name").value;
 	var contact_email = document.getElementById("contact_email").value;
 	var contact_phone = +document.getElementById("contact_phone").value;
@@ -228,7 +232,7 @@ function addContact()
 
 function searchContact()
 {
-	var ownerId = <?php echo json_encode($userid); ?>;
+	var ownerId = <?php echo json_encode($userId); ?>;
 	var searchName = document.getElementById("search_name").value;
 	
 	var jsonPayload = '{"search" : "' + searchName + '", "owner_id" : "' + ownerId + '"}';
