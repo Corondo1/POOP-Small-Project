@@ -13,16 +13,27 @@
 	  
 	  if($password != $authpassword)
 	  {
-		  //alert("Passwords do not match"); //web server threw errors when i had the alerts in, will fix tomorrow
+		echo "<script>window.location.reload();"
+		echo "alert("Passwords do not match");"
+		echo "</script>"
 		  header("location: sign_up.html");
 	  }
 	  
       $sql = "INSERT INTO Users (Username,Password) VALUES ('" . $username . "','" . $password . "')";
 	  $conn = getDataBase();
-      if($result = mysqli_query($conn,$sql) == TRUE)
+      if(mysqli_query($conn,$sql))
 	  {
-		//alert("SignUp successful!");
+		echo "<script>window.location.reload();"
+		echo "alert("Successful Sign Up!");"
+		echo "</script>"
 		header("location: login.html");
+	  }
+	  else
+	  {
+		echo "<script>window.location.reload();"
+		echo "alert("Username taken, please choose another");"
+		echo "</script>"
+		  
 	  }
    }
 ?>
