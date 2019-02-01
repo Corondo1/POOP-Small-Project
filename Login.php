@@ -27,11 +27,11 @@
 		//echo("numrows is $numrows <br>");
 		if($numrows < 1)
 		{
-			echo("<br> invalid login credenitaltajskdlawd <br>");
-			flush(); ob_flush();
-			//sleep(3);
-			header("location: login.html");
-
+			echo "<script>";
+			echo 'alert("Username/password invalid");';
+			echo 'location = "login.html"';
+			echo "</script>";
+			exit();
 		} else
 		{
 			$_SESSION['login_user'] = $username;
