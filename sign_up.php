@@ -12,14 +12,16 @@
 	  
 	  if($password != $authpassword)
 	  {
-		  echo "Passwords do not match";
+		  alert("Passwords do not match");
+		  header("location: sign_up.html");
 	  }
 	  
       $sql = "INSERT INTO Users (Username,Password) VALUES ('" . $username . "','" . $password . "')";
 	  $conn = getDataBase();
       if($result = mysqli_query($conn,$sql) == TRUE)
 	  {
-		  echo "New user registered";
+		alert("SignUp successful!")
+		header("location: login.html");
 	  }
    }
 ?>
