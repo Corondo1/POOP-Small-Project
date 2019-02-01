@@ -20,7 +20,7 @@
 	  $conn = getDataBase();
       if($result = mysqli_query($conn,$sql) == TRUE)
 	  {
-		alert("SignUp successful!")
+		alert("SignUp successful!");
 		header("location: login.html");
 	  }
    }
