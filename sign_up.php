@@ -5,7 +5,6 @@
    if($_SERVER["REQUEST_METHOD"] == "POST") 
    {
       //Most of this is depracated junk, needs to be redone -soon TM(C)R
-	// no keep it? or just include it into the html directly
       
       $username = $_POST['username'];
       $password = $_POST['password']; 
@@ -13,27 +12,30 @@
 	  
 	  if($password != $authpassword)
 	  {
-		echo "<script>window.location.reload();"
-		echo "alert("Passwords do not match");"
-		echo "</script>"
-		  header("location: sign_up.html");
+		echo "<script>";
+		echo 'alert("Passwords do not match");';
+		echo 'location = "sign_up.html"';
+		echo "</script>";
+		exit();
 	  }
 	  
       $sql = "INSERT INTO Users (Username,Password) VALUES ('" . $username . "','" . $password . "')";
 	  $conn = getDataBase();
       if(mysqli_query($conn,$sql))
 	  {
-		echo "<script>window.location.reload();"
-		echo "alert("Successful Sign Up!");"
-		echo "</script>"
-		header("location: login.html");
+	    
+        echo "<script>";
+		echo 'alert("Successful Sign Up!");';
+		echo 'location = "login.html"';
+		echo "</script>";
 	  }
 	  else
 	  {
-		echo "<script>window.location.reload();"
-		echo "alert("Username taken, please choose another");"
-		echo "</script>"
-		  
+		echo "<script>";
+		echo 'alert("Username taken, please choose another");';
+		echo 'location = "sign_up.html"';
+		echo "</script>";
 	  }
    }
 ?>
+
