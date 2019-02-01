@@ -5,6 +5,7 @@
    if($_SERVER["REQUEST_METHOD"] == "POST") 
    {
       //Most of this is depracated junk, needs to be redone -soon TM(C)R
+	// no keep it? or just include it into the html directly
       
       $username = $_POST['username'];
       $password = $_POST['password']; 
@@ -12,7 +13,7 @@
 	  
 	  if($password != $authpassword)
 	  {
-		  alert("Passwords do not match");
+		  //alert("Passwords do not match"); //web server threw errors when i had the alerts in, will fix tomorrow
 		  header("location: sign_up.html");
 	  }
 	  
@@ -20,7 +21,7 @@
 	  $conn = getDataBase();
       if($result = mysqli_query($conn,$sql) == TRUE)
 	  {
-		alert("SignUp successful!");
+		//alert("SignUp successful!");
 		header("location: login.html");
 	  }
    }
