@@ -70,7 +70,7 @@
                 	{
                 		$stmt1 = $conn->prepare("SELECT user_id FROM Users WHERE username = ?");
 						
-						$stmt1->bind_param("i", $user_check);
+						$stmt1->bind_param("s", $user_check);
 						
 						$stmt1->execute();
 						

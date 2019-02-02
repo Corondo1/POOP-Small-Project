@@ -1,6 +1,7 @@
 <?php
 	include("config.php");
 	session_start();
+	$_SESSION = array();
 	
 	if($_SERVER["REQUEST_METHOD"] == "POST")
 	{
@@ -18,7 +19,7 @@
 		{			
 			$stmt = $conn->prepare("SELECT username, password FROM Users WHERE username = ?");
 			
-			$stmt->bind_param("i", $usernameInput);
+			$stmt->bind_param("s", $usernameInput);
 			
 			$stmt->execute();
 						
@@ -57,6 +58,7 @@
 				}
 			}
 			
+			$stmt->close();
 			$conn->close();
 		}
 	}

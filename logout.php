@@ -1,7 +1,9 @@
 <?php
-   session_start();
+	session_start();
+	$_SESSION = array();
 
-   if(session_destroy()) {
-      header("Location: login.html");
-   }
+	if(session_destroy()) 
+	{
+		header("Location: login.html");
+	}
 ?>
