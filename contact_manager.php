@@ -9,6 +9,11 @@
         header("location: login.html");
         die();
     }
+    
+    if(!isset($_SESSION['searchFlag']))
+    {
+        $_SESSION['searchFlag'] = false;
+    }
 ?>
 
 <!DOCTYPE html>
@@ -46,6 +51,33 @@
     </div>
     <div class="container">
         <div>
+            <form action="javascript:searchContact();" method="POST">
+                <div class="form-group">
+                    <label>Search Contacts:</label>
+                    <input id="search_name" name="SearchContacts" type="text" class="form-control" placeholder="">
+                </div>
+                <button type="submit" class="btn btn-default" onclick="showSearch()">Search</button>
+                <button type="reset" class="btn btn-default" onclick="hideSearch()">Clear</button>
+            </form>
+            <table class="table" id="searchTable" style="display:none">
+                <thead>
+                    <tr>
+                        <th>Contact Name</th>
+                        <th>Email</th>
+                        <th>Phone Number</th>
+                        <th>Address</th>
+                        <th></th>
+                  </tr>
+                  <tbody style="display:none">
+                    <?php
+					if($_SESSION['searchFlag'])
+					{
+					    search_manager();
+					}
+					?>
+                  </tbody>
+                </thead>
+            </table>
             <table class="table">
                 <thead>
                   <tr>
@@ -165,6 +197,82 @@
 
 <script>
 
+function showSearch()
+{
+    $_SESSION['searchFlag'] = true;
+    alert("works")
+}
+function hideSearch()
+{
+    document.getElementById("searchTable").style.display = "none";
+}
+
+function search_manager()
+{
+    document.getElementById("searchTable").style.display = "initial";
+    $conn = getDataBase();
+					
+                	if(mysqli_connect_errno($conn))
+                	{
+                		echo("Failed to connect to MySQL: " . mysqli_connect_error($conn));
+                	}
+					
+                	else
+                	{
+                		$stmt1 = $conn->prepare("SELECT user_id FROM Users WHERE username = ?");
+						
+						$stmt1->bind_param("s", $user_check);
+						
+						$stmt1->execute();
+						
+						$stmt1->bind_result($userId);
+						$stmt1->store_result();
+						
+						if ($stmt1->num_rows() < 1)
+						{
+							echo("Error");
+						}
+						
+						else
+						{
+							while ($stmt1->fetch())
+							{
+								if($conn->prepare("SELECT contact_id, name, email, phone, address  FROM Contacts WHERE name LIKE % ? % AND owner_id = ?"))
+								{
+						    		$stmt2 = $conn->prepare("SELECT contact_id, name, email, phone, address  FROM Contacts WHERE name LIKE % ? % AND owner_id = ?");
+								
+						    		$stmt2->bind_param("si", $contactName, $userId);
+								
+						    		$stmt2->execute();
+								
+						    		$stmt2->bind_result($contactId, $name, $email, $phone, $address);
+						    		$stmt2->store_result();
+								
+						    		while ($stmt2->fetch())
+							    	{
+							    		echo "<tr>";
+							    		echo "<td>" . $name . "</td>";
+							    		echo "<td>" . $email . "</td>";
+							    		echo "<td>" . $phone . "</td>";
+							    		echo "<td>" . $address . "</td>";
+							    		echo "<td><button id='addContact' type='button' class='btn btn-danger' onclick='deleteContact(".$contactId.")'>Delete</button></td>";
+								    	echo "</tr>";
+							    	}
+							    	
+					                $stmt2->close();
+					                $conn->close();
+								}
+								else
+								{
+								}
+							}
+							
+							$stmt1->close();
+						}
+                	}
+                    
+}
+
 function deleteContact(contact_id) 
 {
 	var contactId = contact_id;
@@ -247,6 +355,7 @@ function searchContact()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
+			    /*
 				var values = '';
 				var jsonObject = JSON.parse( xhr.responseText );
 				var i;
@@ -256,6 +365,7 @@ function searchContact()
 					values += "\r";
 				}
 				alert(values);
+				*/
 			}
 		};
 		xhr.send(jsonPayload);
