@@ -41,8 +41,8 @@
       </div>
     </nav>
     <div class="jumbotron text-center">
-        <h1>Project 1</h1>
-        <p>*burrppppp* Yeah Morty, and this is the Contact list page.</p>
+        <h1>Contact Manager</h1>
+        <p>The Contacts Page</p>
     </div>
     <div class="container">
         <div>
