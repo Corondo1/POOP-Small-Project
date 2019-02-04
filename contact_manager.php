@@ -86,7 +86,7 @@
 						{
 							while ($stmt1->fetch())
 							{
-								$stmt2 = $conn->prepare("SELECT contact_id, name, email, phone, address FROM Contacts WHERE owner_id = ?");
+								$stmt2 = $conn->prepare("SELECT contact_id, name, email, phone, address FROM Contacts WHERE owner_id = ? ORDER BY name");
 								
 								$stmt2->bind_param("i", $userId);
 								
