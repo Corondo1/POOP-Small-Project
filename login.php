@@ -2,7 +2,9 @@
 	include("config.php");
 	session_start();
 	$_SESSION = array();
-	
+
+	$conn = getDataBase();
+
 	if($_SERVER["REQUEST_METHOD"] == "POST")
 	{
 		$usernameInput = $_POST['username'];
@@ -62,4 +64,6 @@
 			$conn->close();
 		}
 	}
+
+
 ?>

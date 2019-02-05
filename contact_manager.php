@@ -9,6 +9,11 @@
         header("location: login.html");
         die();
     }
+    
+    if(!isset($_SESSION['searchFlag']))
+    {
+        $_SESSION['searchFlag'] = false;
+    }
 ?>
 
 <!DOCTYPE html>
@@ -171,7 +176,7 @@ function deleteContact(contact_id)
 	
 	var jsonPayload = '{"contact_id" : "' + contactId + '"}';
 	
-	var url = 'http://yeetdog.com/ContactProject/delete_contact.php';
+	var url = 'https://yeetdog.com/ContactProject/delete_contact.php';
 	
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
