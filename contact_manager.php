@@ -205,7 +205,7 @@ function addContact()
 	
 	var jsonPayload = '{"owner_id" : "' + ownerId + '", "contact_name" : "' + contact_name + '", "contact_email" : "' + contact_email + '", "contact_phone" : "' + contact_phone + '", "contact_address" : "' + contact_address + '"}';
 	
-	var url = 'http://yeetdog.com/ContactProject/add_contact.php';
+	var url = 'https://yeetdog.com/ContactProject/add_contact.php';
 	
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -236,7 +236,7 @@ function searchContact()
 	var searchName = document.getElementById("search_name").value;
 	
 	var jsonPayload = '{"search" : "' + searchName + '", "owner_id" : "' + ownerId + '"}';
-	var url = 'http://yeetdog.com/ContactProject/search_contact.php';
+	var url = 'https://yeetdog.com/ContactProject/search_contact.php';
 	
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
