@@ -7,3 +7,10 @@
 .container{
     padding-bottom:70px;
 }
+.search_symbol span{
+    background-color: #FFF;
+}
+
+.search_symbol input{
+    border-right-style:none;
+}
