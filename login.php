@@ -2,21 +2,22 @@
 	include("config.php");
 	session_start();
 	$_SESSION = array();
-
-	$conn = getDataBase();
-
+	$obj = json_decode(file_get_contents('php://input'), true);
+    //var_dump(obj);
 	if($_SERVER["REQUEST_METHOD"] == "POST")
 	{
-		$usernameInput = $_POST['username'];
-		$passwordInput = $_POST['password'];
-
+	    
+		$usernameInput = $obj["username"];
+		$passwordInput = $obj["password"];
+    
 		$conn = getDataBase();
 		
+		// Bad Connection to the DB
 		if(mysqli_connect_errno($conn))
 		{
 			echo("Failed to connect to MySQL: " . mysqli_connect_error($conn));
 		} 
-		
+		// Successful connection to DB
 		else
 		{			
 			$stmt = $conn->prepare("SELECT username, password FROM Users WHERE username = ?");
@@ -25,15 +26,18 @@
 			
 			$stmt->execute();
 						
-			$stmt->bind_result($usernameDB, $password);
+			$stmt->bind_result($usernameDB, $passwordDB);
 			$stmt->store_result();
 			
+			// Username doesn't exist
 			if ($stmt->num_rows() < 1)
 			{
-				echo "<script>";
-				echo 'alert("Username/password invalid");';
-				echo 'location = "login.html"';
-				echo "</script>";
+				// Send JSON response
+			    $response = new \stdClass();
+			    $response->username = $usernameDB;
+			    $response->password = $passwordDB;
+			    $response->state = 2;
+			    echo json_encode($response);
 				exit();
 			}
 			
@@ -41,29 +45,33 @@
 			{
 				while ($stmt->fetch())
 				{
-					$hashed_password = $password;
-					
-					if (password_verify($passwordInput, $hashed_password))
+				    // Correct password
+					if (password_verify($passwordInput, $passwordDB))
 					{
+					    // Send JSON response
+					    $response = new \stdClass();
+        			    $response->username = $usernameDB;
+        			    $response->password = $passwordDB;
+        			    $response->state = 1;
+        			    echo json_encode($response);
+        			    
 						$_SESSION['login_user'] = $usernameDB;
-						header("location: contact_manager.php");
+						//header("location: contact_manager.php");
 					}
-					
+					// Incorrect Password
 					else
 					{
-						echo "<script>";
-						echo 'alert("Username/password invalid");';
-						echo 'location = "login.html"';
-						echo "</script>";
-						exit();
+						// Send JSON response
+					    $response = new \stdClass();
+        			    $response->username = $usernameDB;
+        			    $response->password = $passwordDB;
+        			    $response->state = 3;
+        			    echo json_encode($response);
 					}
 				}
 			}
-			
 			$stmt->close();
 			$conn->close();
 		}
 	}
-
-
 ?>

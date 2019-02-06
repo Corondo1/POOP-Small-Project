@@ -1,16 +1,14 @@
 CACHE MANIFEST
-# version 1.24
+# version 1.25
 add_contact.php
 config.php
 contact_manager.php
-contact_search.php
 delete_contact.php
 login.html
 login.php
 logout.php
-search_contact.php
 session.php
 sign_up.html
 sign_up.php
 style.css
-update_cache.js
+login.js

@@ -1,7 +1,6 @@
 <?php
     include("config.php");
     session_start();
-
     $user_check = $_SESSION['login_user'];
 
     if(!isset($_SESSION['login_user']))
@@ -250,7 +249,6 @@ function addContact()
 			if (this.readyState == 4 && this.status == 200)
 			{
 				window.location.reload();
-				alert("Contact has been added");
 			}
 		};
 		xhr.send(jsonPayload);
